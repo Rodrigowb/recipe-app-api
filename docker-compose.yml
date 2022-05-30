@@ -20,3 +20,27 @@ services:
     # Command to run the services (default; we will sometimes override it)
     command: >
       sh -c "python manage.py runserver 0.0.0.0:8000"
+    # Add similar env variables to app (how to connect to the db)
+    environment:
+      - DB_HOST=db
+      - DB_NAME=devdb
+      - DB_USER=devuser
+      - DB_PASS=changeme
+    # Tells docker compose that the app depends on db service
+    depends_on:
+      - db
+    # Define the db services
+  db:
+    image: postgres:13-alpine
+    volumes:
+      # Map this directory to the volumes
+      - dev-db-data:/var/lib/postgresql/data
+    environment:
+      # Set the local dev server db (only for local dev)
+      - POSTGRES_DB=devdb
+      - POSTGRES_USER=devuser
+      - POSTGRES_PASSWORD=changeme
+# How to store persistent data using docker compose
+# Map a directory on the service, inside the local machine 
+volumes:
+  dev-db-data:
