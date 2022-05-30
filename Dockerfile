@@ -26,21 +26,26 @@ ARG DEV=false
 RUN python -m venv /py && \
   # Upgrade pip
   /py/bin/pip install --upgrade pip && \
+  # Install dependencies to install psycopg2 (orm for psql)
+  apk add --update --no-cache postgresql-client && \
+  apk add --update --no-cache --virtual .tmp-build-deps \
+  build-base postgresql-dev musl-dev && \
   # Install requirements file
   /py/bin/pip install -r /tmp/requirements.txt && \
   # Shell script
   if [ $DEV = "true" ]; \
-    then /py/bin/pip install -r /tmp/requirements.dev.txt ; \
+  then /py/bin/pip install -r /tmp/requirements.dev.txt ; \
   fi && \
   # Remove the tmp directory (remove extra dependencies; keep light)
   rm -rf /tmp && \
+  apk del .tmp-build-deps && \
   # Add a new user inside the image (best practice not use the root user inside the image)
   # Don't run your application in a full access user
   adduser \
-    --disabled-password \
-    --no-create-home \
-    # User name
-    django-user
+  --disabled-password \
+  --no-create-home \
+  # User name
+  django-user
 
 #  Update the env variable inside the image; define executable directory
 ENV PATH="/py/bin:$PATH"
