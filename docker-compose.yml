@@ -19,7 +19,9 @@ services:
       - ./app:/app
     # Command to run the services (default; we will sometimes override it)
     command: >
-      sh -c "python manage.py runserver 0.0.0.0:8000"
+      sh -c "python manage.py wait_for_db && configs:
+            python manage.py migrate && configs:
+            python manage.py runserver 0.0.0.0:8000"
     # Add similar env variables to app (how to connect to the db)
     environment:
       - DB_HOST=db
