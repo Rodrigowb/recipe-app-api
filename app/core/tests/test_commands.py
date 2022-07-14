@@ -3,7 +3,7 @@ Test custom Django management commands
 """
 # Mock behavior of the db
 from unittest.mock import patch
-# Operartional error that we might ge
+# Operartional error that we might get
 from psycopg2 import OperationalError as Psycopg2Error
 # Helper function that allow us to call the command that we are testing
 from django.core.management import call_command

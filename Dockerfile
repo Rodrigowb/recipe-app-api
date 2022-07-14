@@ -1,3 +1,5 @@
+# BUILD IMAGES AUTOMATICALLY, BY READING THE COMMANDS
+
 # Define the name of the image we will be using
 FROM python:3.9-alpine3.13
 # Define the maintainer
@@ -12,7 +14,7 @@ COPY ./requirements.txt /tmp/requirements.txt
 COPY ./requirements.dev.txt /tmp/requirements.dev.txt
 # Copy the app directory (Django App)
 COPY ./app /app
-# Set the work directory
+# Set the work directory for the run cmd
 WORKDIR /app
 # Expose port 800 on the container when run the container  
 EXPOSE 800 

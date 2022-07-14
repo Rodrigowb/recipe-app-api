@@ -1,3 +1,5 @@
+# DEFINES SERVICES, NETWORKS AND VOLUMES OF A DOCKER APPLICATION
+
 # Version of the docker compose syntax
 version: "3.9"
 
@@ -7,6 +9,7 @@ services:
   app:
     # Build the docker compose from the current directory
     build:
+      # Defines the path containing the Dockerfile
       context: .
       # Set the development env
       args:
