@@ -13,7 +13,7 @@ class AdminSiteTests(TestCase):
 
   # Write the setup to the tests, creating a user and a superuser, authenticated
     def setUp(self):
-        """Create uer and client"""
+        """Create user and client"""
         self.client = Client()
         # Create superuser
         self.admin_user = get_user_model().objects.create_superuser(
